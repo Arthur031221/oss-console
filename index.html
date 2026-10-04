@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light dark">
+<title>引擎監控台</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='4' fill='%23234bd1'/%3E%3Ccircle cx='8' cy='8' r='3' fill='white'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="style.css?v=32a5da390c">
+</head>
+<body>
+<div id="lock" class="lock">
+  <form id="unlock" class="lock-card" autocomplete="off">
+    <svg class="lock-mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10"/><circle cx="20" cy="20" r="7"/></svg>
+    <h1>引擎監控台</h1>
+    <p class="lock-note">資料已加密,輸入通行密語才能開啟。</p>
+    <label class="field"><span>通行密語</span><input id="pass" type="password" autocomplete="current-password" autofocus></label>
+    <label class="check"><input id="remember" type="checkbox"> 在這台裝置記住</label>
+    <button type="submit" class="btn primary">開啟</button>
+    <p id="lock-msg" class="lock-msg" role="alert"></p>
+  </form>
+</div>
+
+<div id="app" hidden>
+  <header class="top">
+    <div class="top-inner">
+      <div class="brand"><svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10"/><circle cx="20" cy="20" r="7"/></svg><span>引擎監控台</span></div>
+      <div id="status" class="status" aria-live="polite"></div>
+      <div class="top-actions">
+        <button id="refresh" class="btn ghost" type="button">重新整理</button>
+        <button id="theme" class="btn ghost icon" type="button" aria-label="切換深色或淺色"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 3a7 7 0 0 1 0 14z" fill="currentColor"/></svg></button>
+        <button id="logout" class="btn ghost" type="button">鎖定</button>
+      </div>
+    </div>
+    <nav class="tabs" aria-label="分頁">
+      <button type="button" data-tab="overview">總覽</button>
+      <button type="button" data-tab="oss">開源</button>
+      <button type="button" data-tab="personal">個人開源</button>
+      <button type="button" data-tab="comps">競賽</button>
+      <button type="button" data-tab="papers">論文</button>
+      <button type="button" data-tab="daily">每日任務</button>
+      <button type="button" data-tab="wall">成就</button>
+      <button type="button" data-tab="system">系統</button>
+    </nav>
+  </header>
+  <main id="view" class="wrap"></main>
+  <footer class="foot wrap" id="foot"></footer>
+</div>
+
+<div id="modal" class="modal" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-label="報告">
+    <button class="btn ghost icon modal-close" id="modal-close" type="button" aria-label="關閉"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<div id="cele" class="cele" hidden>
+  <canvas id="cele-canvas" aria-hidden="true"></canvas>
+  <div class="cele-card" role="dialog" aria-modal="true" aria-labelledby="cele-title">
+    <svg class="trophy" viewBox="0 0 120 120" aria-hidden="true">
+      <defs>
+        <linearGradient id="cup" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".85"/><stop offset=".35" style="stop-color:var(--kind)"/><stop offset="1" style="stop-color:var(--kind);stop-opacity:.75"/></linearGradient>
+      </defs>
+      <path d="M34 22h52v18c0 17-11 30-26 30S34 57 34 40z" fill="url(#cup)"/>
+      <path d="M34 28H20c0 16 7 24 17 26M86 28h14c0 16-7 24-17 26" class="k-stroke" fill="none" stroke-width="6" stroke-linecap="round"/>
+      <path d="M54 70h12v14H54z" class="k-fill"/>
+      <path d="M40 88h40l4 12H36z" class="k-fill"/>
+      <path class="shine" d="M46 26l8 0-10 30-6-4z" fill="#fff" opacity=".55"/>
+    </svg>
+    <div class="cele-kind" id="cele-kind"></div>
+    <h2 id="cele-title"></h2>
+    <p id="cele-detail"></p>
+    <div class="cele-actions"><a id="cele-link" class="btn primary" target="_blank" rel="noopener">打開連結</a><a id="cele-share" class="btn" target="_blank" rel="noopener" title="打開 GitHub 發布頁,內容已填好,按 Publish 就會出現在追蹤你的人的動態">分享到 GitHub 動態</a><button id="cele-close" type="button" class="btn ghost">關閉</button></div>
+    <div class="cele-count" id="cele-count"></div>
+  </div>
+</div>
+<script src="app.js?v=fb37bebd5d"></script>
+</body>
+</html>
